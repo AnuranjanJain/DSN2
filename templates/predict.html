@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Health Prediction</title>
+</head>
+<style>
+    /* General Styling */
+body {
+    background-color: #000;
+    color: white;
+    font-family: Arial, sans-serif;
+    text-align: center;
+    margin: 0;
+    padding: 0;
+}
+
+/* Page Title */
+h2 {
+    color: #00C389;
+    margin-top: 20px;
+}
+
+/* Form Container */
+.container {
+    width: 80%;
+    max-width: 400px;
+    margin: auto;
+    padding: 20px;
+    background: #222;
+    border-radius: 10px;
+    box-shadow: 0px 0px 10px rgba(0, 195, 137, 0.5);
+}
+
+/* Input Fields */
+input {
+    width: 90%;
+    padding: 10px;
+    margin: 10px 0;
+    background: #333;
+    color: white;
+    border: 1px solid #00C389;
+    border-radius: 5px;
+    font-size: 16px;
+}
+
+/* Buttons */
+button {
+    background-color: #00C389;
+    color: white;
+    padding: 15px;
+    border: none;
+    width: 100%;
+    font-size: 18px;
+    border-radius: 5px;
+    margin-top: 10px;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+button:hover {
+    background-color: #009d75;
+}
+
+/* Prediction Result Styling */
+.result {
+    font-size: 24px;
+    font-weight: bold;
+    color: red;
+    margin: 20px 0;
+}
+
+</style>
+<body>
+    <h2>Fill in your Details</h2>
+    <div class="container">
+        <form action="/predict" method="post">
+            <label>Chest Pain Type</label>
+            <input type="number" name="chest_pain" required>
+
+            <label>Max Heart Rate</label>
+            <input type="number" name="heart_rate" required>
+
+            <label>Exercise ST</label>
+            <input type="number" name="exercise_st" required>
+
+            <label>Resting ECG</label>
+            <input type="number" name="resting_ecg" required>
+
+            <label>Cholesterol (mg/dl)</label>
+            <input type="number" name="cholesterol" required>
+
+            <label>Resting Blood Pressure (mmHg)</label>
+            <input type="number" name="blood_pressure" required>
+
+            <label>Fasting Blood Sugar</label>
+            <input type="number" name="fasting_sugar" required>
+
+            <label>ST Depression</label>
+            <input type="number" name="st_depression" step="0.1" required>
+
+            <button type="submit">PREDICT</button>
+        </form>
+    </div>
+    
+<div id="result"></div>
+
+<script>
+document.getElementById("prediction-form").onsubmit = async function(event) {
+    event.preventDefault();
+    
+    let formData = new FormData(this);
+    
+    let response = await fetch("/predict", {
+        method: "POST",
+        body: formData
+    });
+
+    let result = await response.json();
+    
+    if (result.error) {
+        document.getElementById("result").innerHTML = `<p style="color: red;">Error: ${result.error}</p>`;
+    } else {
+        document.getElementById("result").innerHTML = `<p style="color: green;">${result.prediction}% Chances of Heart Disease</p>`;
+    }
+};
+</script>
+</body>
+</html>
