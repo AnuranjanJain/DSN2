@@ -3,128 +3,293 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Health Prediction</title>
+    <title>Heart Disease Risk Assessment</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
 </head>
-<style>
-    /* General Styling */
-body {
-    background-color: #000;
-    color: white;
-    font-family: Arial, sans-serif;
-    text-align: center;
-    margin: 0;
-    padding: 0;
-}
-
-/* Page Title */
-h2 {
-    color: #00C389;
-    margin-top: 20px;
-}
-
-/* Form Container */
-.container {
-    width: 80%;
-    max-width: 400px;
-    margin: auto;
-    padding: 20px;
-    background: #222;
-    border-radius: 10px;
-    box-shadow: 0px 0px 10px rgba(0, 195, 137, 0.5);
-}
-
-/* Input Fields */
-input {
-    width: 90%;
-    padding: 10px;
-    margin: 10px 0;
-    background: #333;
-    color: white;
-    border: 1px solid #00C389;
-    border-radius: 5px;
-    font-size: 16px;
-}
-
-/* Buttons */
-button {
-    background-color: #00C389;
-    color: white;
-    padding: 15px;
-    border: none;
-    width: 100%;
-    font-size: 18px;
-    border-radius: 5px;
-    margin-top: 10px;
-    cursor: pointer;
-    transition: 0.3s;
-}
-
-button:hover {
-    background-color: #009d75;
-}
-
-/* Prediction Result Styling */
-.result {
-    font-size: 24px;
-    font-weight: bold;
-    color: red;
-    margin: 20px 0;
-}
-
-</style>
 <body>
-    <h2>Fill in your Details</h2>
-    <div class="container">
-        <form action="/predict" method="post">
-            <label>Chest Pain Type</label>
-            <input type="number" name="chest_pain" required>
+    <div class="header">
+        <div class="back-btn" onclick="location.href='/';">
+            <span>←</span> Back
+        </div>
+        <h2>HEART RISK ASSESSMENT</h2>
+        <div></div>
+    </div>
 
-            <label>Max Heart Rate</label>
-            <input type="number" name="heart_rate" required>
+    <div class="form-container">
+        <div class="form-intro">
+            <h3>Enter Your Health Information</h3>
+            <p>Fill in the following information to assess your heart disease risk. All fields are required for accurate prediction.</p>
+        </div>
 
-            <label>Exercise ST</label>
-            <input type="number" name="exercise_st" required>
+        <form action="/predict" method="post" id="prediction-form">
+            <div class="form-tabs">
+                <div class="tab-btn active" data-tab="basic">Basic Info</div>
+                <div class="tab-btn" data-tab="cardiac">Cardiac Metrics</div>
+                <div class="tab-btn" data-tab="lifestyle">Lifestyle</div>
+                <div class="tab-btn" data-tab="medical">Medical History</div>
+            </div>
 
-            <label>Resting ECG</label>
-            <input type="number" name="resting_ecg" required>
+            <div class="tab-content active" id="basic">
+                <div class="form-group">
+                    <label for="age">Age</label>
+                    <input type="number" name="age" id="age" min="18" max="100" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="systolic_bp">Systolic Blood Pressure (mmHg)</label>
+                    <input type="number" name="systolic_bp" id="systolic_bp" min="80" max="220" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="diastolic_bp">Diastolic Blood Pressure (mmHg)</label>
+                    <input type="number" name="diastolic_bp" id="diastolic_bp" min="50" max="130" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="obesity_bmi">BMI</label>
+                    <input type="number" name="obesity_bmi" id="obesity_bmi" min="15" max="45" step="0.1" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="resting_heart_rate">Resting Heart Rate (BPM)</label>
+                    <input type="number" name="resting_heart_rate" id="resting_heart_rate" min="40" max="120" required>
+                </div>
+            </div>
 
-            <label>Cholesterol (mg/dl)</label>
-            <input type="number" name="cholesterol" required>
+            <div class="tab-content" id="cardiac">
+                <div class="form-group">
+                    <label for="cholesterol">Total Cholesterol (mg/dl)</label>
+                    <input type="number" name="cholesterol" id="cholesterol" min="100" max="400" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="triglycerides">Triglycerides (mg/dl)</label>
+                    <input type="number" name="triglycerides" id="triglycerides" min="50" max="500" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="ldl">LDL Cholesterol (mg/dl)</label>
+                    <input type="number" name="ldl" id="ldl" min="50" max="300" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="hdl">HDL Cholesterol (mg/dl)</label>
+                    <input type="number" name="hdl" id="hdl" min="20" max="100" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="cholesterol_hdl_ratio">Cholesterol/HDL Ratio</label>
+                    <input type="number" name="cholesterol_hdl_ratio" id="cholesterol_hdl_ratio" min="1" max="15" step="0.1" required>
+                </div>
+            </div>
 
-            <label>Resting Blood Pressure (mmHg)</label>
-            <input type="number" name="blood_pressure" required>
+            <div class="tab-content" id="lifestyle">
+                <div class="form-group radio-group">
+                    <label>Smoking</label>
+                    <div class="radio-options">
+                        <label><input type="radio" name="smoking" value="0" checked> No</label>
+                        <label><input type="radio" name="smoking" value="1"> Yes</label>
+                    </div>
+                </div>
+                
+                <div class="form-group radio-group">
+                    <label>Alcohol Consumption</label>
+                    <div class="radio-options">
+                        <label><input type="radio" name="alcohol_consumption" value="0" checked> No</label>
+                        <label><input type="radio" name="alcohol_consumption" value="1"> Yes</label>
+                    </div>
+                </div>
+                
+                <div class="form-group radio-group">
+                    <label>Physical Activity</label>
+                    <div class="radio-options">
+                        <label><input type="radio" name="physical_activity" value="0"> Inactive</label>
+                        <label><input type="radio" name="physical_activity" value="1" checked> Active</label>
+                    </div>
+                </div>
+                
+                <div class="form-group">
+                    <label for="diet_quality">Diet Quality</label>
+                    <select name="diet_quality" id="diet_quality" required>
+                        <option value="Poor">Poor</option>
+                        <option value="Average" selected>Average</option>
+                        <option value="Good">Good</option>
+                    </select>
+                </div>
+                
+                <div class="form-group">
+                    <label for="stress_level">Stress Level</label>
+                    <select name="stress_level" id="stress_level" required>
+                        <option value="Low">Low</option>
+                        <option value="Medium" selected>Medium</option>
+                        <option value="High">High</option>
+                    </select>
+                </div>
+            </div>
 
-            <label>Fasting Blood Sugar</label>
-            <input type="number" name="fasting_sugar" required>
+            <div class="tab-content" id="medical">
+                <div class="form-group radio-group">
+                    <label>Diabetes</label>
+                    <div class="radio-options">
+                        <label><input type="radio" name="diabetes" value="0" checked> No</label>
+                        <label><input type="radio" name="diabetes" value="1"> Yes</label>
+                    </div>
+                </div>
+                
+                <div class="form-group radio-group">
+                    <label>Hypertension</label>
+                    <div class="radio-options">
+                        <label><input type="radio" name="hypertension" value="0" checked> No</label>
+                        <label><input type="radio" name="hypertension" value="1"> Yes</label>
+                    </div>
+                </div>
+                
+                <div class="form-group radio-group">
+                    <label>ECG Abnormality</label>
+                    <div class="radio-options">
+                        <label><input type="radio" name="ecg_abnormality" value="0" checked> No</label>
+                        <label><input type="radio" name="ecg_abnormality" value="1"> Yes</label>
+                    </div>
+                </div>
+                
+                <div class="form-group radio-group">
+                    <label>Family History of Heart Disease</label>
+                    <div class="radio-options">
+                        <label><input type="radio" name="family_history" value="0" checked> No</label>
+                        <label><input type="radio" name="family_history" value="1"> Yes</label>
+                    </div>
+                </div>
+                
+                <div class="form-group radio-group">
+                    <label>Previous Stroke</label>
+                    <div class="radio-options">
+                        <label><input type="radio" name="stroke_history" value="0" checked> No</label>
+                        <label><input type="radio" name="stroke_history" value="1"> Yes</label>
+                    </div>
+                </div>
+                
+                <div class="form-group radio-group">
+                    <label>Kidney Disease</label>
+                    <div class="radio-options">
+                        <label><input type="radio" name="kidney_disease" value="0" checked> No</label>
+                        <label><input type="radio" name="kidney_disease" value="1"> Yes</label>
+                    </div>
+                </div>
 
-            <label>ST Depression</label>
-            <input type="number" name="st_depression" step="0.1" required>
+                <div class="form-group">
+                    <label for="cardiovascular_risk_score">Cardiovascular Risk Score (if known)</label>
+                    <input type="number" name="cardiovascular_risk_score" id="cardiovascular_risk_score" min="60" max="150" step="0.1">
+                    <small>Leave blank if unknown. This will be calculated.</small>
+                </div>
+            </div>
 
-            <button type="submit">PREDICT</button>
+            <div class="form-actions">
+                <button type="button" id="prev-btn" disabled>Previous</button>
+                <button type="button" id="next-btn">Next</button>
+                <button type="submit" id="submit-btn" style="display: none;">Calculate Risk</button>
+            </div>
         </form>
     </div>
-    
-<div id="result"></div>
 
-<script>
-document.getElementById("prediction-form").onsubmit = async function(event) {
-    event.preventDefault();
-    
-    let formData = new FormData(this);
-    
-    let response = await fetch("/predict", {
-        method: "POST",
-        body: formData
-    });
+    <script>
+        // Form navigation
+        const tabs = document.querySelectorAll('.tab-btn');
+        const tabContents = document.querySelectorAll('.tab-content');
+        const prevBtn = document.getElementById('prev-btn');
+        const nextBtn = document.getElementById('next-btn');
+        const submitBtn = document.getElementById('submit-btn');
+        let currentTab = 0;
 
-    let result = await response.json();
-    
-    if (result.error) {
-        document.getElementById("result").innerHTML = `<p style="color: red;">Error: ${result.error}</p>`;
-    } else {
-        document.getElementById("result").innerHTML = `<p style="color: green;">${result.prediction}% Chances of Heart Disease</p>`;
-    }
-};
-</script>
+        // Initialize
+        showTab(currentTab);
+
+        // Tab buttons
+        tabs.forEach(tab => {
+            tab.addEventListener('click', () => {
+                const tabName = tab.getAttribute('data-tab');
+                
+                // Update active tab
+                tabs.forEach(t => t.classList.remove('active'));
+                tab.classList.add('active');
+                
+                // Show corresponding content
+                tabContents.forEach(content => {
+                    content.classList.remove('active');
+                    if (content.id === tabName) {
+                        content.classList.add('active');
+                        
+                        // Update current tab index
+                        currentTab = Array.from(tabs).indexOf(tab);
+                        
+                        // Update navigation buttons
+                        updateButtons();
+                    }
+                });
+            });
+        });
+
+        // Previous button
+        prevBtn.addEventListener('click', () => {
+            if (currentTab > 0) {
+                currentTab--;
+                showTab(currentTab);
+            }
+        });
+
+        // Next button
+        nextBtn.addEventListener('click', () => {
+            if (validateCurrentTab() && currentTab < tabs.length - 1) {
+                currentTab++;
+                showTab(currentTab);
+            }
+        });
+
+        // Show specified tab
+        function showTab(index) {
+            // Hide all tab contents
+            tabContents.forEach(content => content.classList.remove('active'));
+            
+            // Show current tab content
+            tabContents[index].classList.add('active');
+            
+            // Update active tab indicator
+            tabs.forEach(tab => tab.classList.remove('active'));
+            tabs[index].classList.add('active');
+            
+            // Update buttons
+            updateButtons();
+        }
+
+        // Update navigation buttons
+        function updateButtons() {
+            prevBtn.disabled = currentTab === 0;
+            
+            if (currentTab === tabs.length - 1) {
+                nextBtn.style.display = 'none';
+                submitBtn.style.display = 'inline';
+            } else {
+                nextBtn.style.display = 'inline';
+                submitBtn.style.display = 'none';
+            }
+        }
+
+        // Validate current tab
+        function validateCurrentTab() {
+            const currentFields = tabContents[currentTab].querySelectorAll('input[required], select[required]');
+            let valid = true;
+            
+            currentFields.forEach(field => {
+                if (!field.value) {
+                    field.classList.add('invalid');
+                    valid = false;
+                } else {
+                    field.classList.remove('invalid');
+                }
+            });
+            
+            return valid;
+        }
+    </script>
 </body>
 </html>
