@@ -1,31 +1,176 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-    <title>Prediction Result</title>
-    <style>
-        body { background-color: #000; color: white; font-family: Arial, sans-serif; text-align: center; }
-        .container { width: 50%; margin: auto; padding: 20px; background: #222; border-radius: 10px; }
-        .result { font-size: 24px; font-weight: bold; color: red; }
-        button { background-color: #00C389; color: white; padding: 15px; border: none; width: 85%; font-size: 18px; }
-    </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Heart Risk Assessment Results</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
 <body>
-    <h2>Prediction Result</h2>
-
-    <div class="container">
-        {% if error %}
-            <p style="color: red;">Error: {{ error }}</p>
-        {% else %}
-            <h3>Your Prediction Result</h3>
-            <p style="font-size: 22px;">
-                You have a <strong>{{ prediction }}%</strong> chance of heart disease.
-            </p>
-        {% endif %}
-        <button onclick="window.location.href='/'">Try Again</button>
+    <div class="header">
+        <div class="back-btn" onclick="location.href='/';">
+            <span>←</span> Home
+        </div>
+        <h2>ASSESSMENT RESULTS</h2>
+        <div></div>
     </div>
+
+    <div class="results-container">
+        {% if error %}
+            <div class="error-box">
+                <h3>An Error Occurred</h3>
+                <p>{{ error }}</p>
+                <button onclick="window.location.href='{{ url_for('predict_form') }}';">Try Again</button>
+            </div>
+        {% else %}
+            <div class="risk-overview">
+                <div class="risk-gauge">
+                    <div class="gauge-value" style="--percent: {{ prediction }}; --color: {{ color }};">
+                        <span>{{ prediction }}%</span>
+                    </div>
+                    <div class="gauge-label">Risk</div>
+                </div>
+                
+                <div class="risk-summary">
+                    <h3>Your Heart Disease Risk Assessment</h3>
+                    <p>Based on your provided health information, your heart disease risk is considered:</p>
+                    <div class="risk-level" style="background-color: {{ color }};">{{ risk_level }} Risk ({{ prediction }}%)</div>
+                    <p class="risk-explanation">
+                        {% if risk_level == "Low" %}
+                        Your risk is lower than average. Keep maintaining your healthy lifestyle!
+                        {% elif risk_level == "Medium" %}
+                        You have moderate risk factors. Consider lifestyle improvements and regular check-ups.
+                        {% else %}
+                        Your risk factors are significant. We strongly recommend consulting with a healthcare professional.
+                        {% endif %}
+                    </p>
+                </div>
+            </div>
+
+            <div class="results-details">
+                <div class="detail-section">
+                    <h3>Key Factors Influencing Your Results</h3>
+                    <div class="chart-container">
+                        <canvas id="factorsChart"></canvas>
+                    </div>
+                </div>
+
+                <div class="detail-section">
+                    <h3>Recommendations</h3>
+                    <div class="recommendations">
+                        <div class="recommendation-item">
+                            <div class="recommendation-icon">🩺</div>
+                            <div class="recommendation-content">
+                                <h4>Medical Follow-up</h4>
+                                <p>{% if prediction > 30 %}Schedule a consultation with a healthcare provider to discuss your cardiovascular health.{% else %}Continue regular health check-ups with your doctor.{% endif %}</p>
+                            </div>
+                        </div>
+                        
+                        <div class="recommendation-item">
+                            <div class="recommendation-icon">🥗</div>
+                            <div class="recommendation-content">
+                                <h4>Diet</h4>
+                                <p>{% if input_data.cholesterol > 200 %}Consider a heart-healthy diet low in saturated fats to reduce cholesterol.{% else %}Maintain a balanced diet rich in fruits, vegetables, and whole grains.{% endif %}</p>
+                            </div>
+                        </div>
+                        
+                        <div class="recommendation-item">
+                            <div class="recommendation-icon">🏃</div>
+                            <div class="recommendation-content">
+                                <h4>Exercise</h4>
+                                <p>{% if input_data.physical_activity == 0 %}Aim for at least 150 minutes of moderate exercise per week to improve heart health.{% else %}Continue your active lifestyle with regular physical activity.{% endif %}</p>
+                            </div>
+                        </div>
+                        
+                        <div class="recommendation-item">
+                            <div class="recommendation-icon">🚭</div>
+                            <div class="recommendation-content">
+                                <h4>Lifestyle</h4>
+                                <p>{% if input_data.smoking == 1 %}Quitting smoking is one of the most impactful changes you can make for heart health.{% else %}Maintain your smoke-free lifestyle for optimal heart health.{% endif %}</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="action-buttons">
+                <button onclick="window.location.href='{{ url_for('predict_form') }}';">Start New Assessment</button>
+                <button onclick="window.location.href='{{ url_for('health_tips') }}';">View Health Tips</button>
+                <button onclick="window.print();" class="secondary-btn">Print Results</button>
+            </div>
+        {% endif %}
+    </div>
+
+    <script>
+        {% if not error %}
+        // Chart for key factors
+        const vizData = JSON.parse('{{ viz_data|safe }}');
+        const ctx = document.getElementById('factorsChart').getContext('2d');
+        
+        // Format feature names for display
+        const displayLabels = vizData.top_features.map(feature => {
+            return feature.replace(/_/g, ' ')
+                .split(' ')
+                .map(word => word.charAt(0).toUpperCase() + word.slice(1))
+                .join(' ');
+        });
+        
+        const factorsChart = new Chart(ctx, {
+            type: 'bar',
+            data: {
+                labels: displayLabels,
+                datasets: [{
+                    label: 'Impact on Prediction',
+                    data: vizData.values,
+                    backgroundColor: [
+                        'rgba(0, 195, 137, 0.7)',
+                        'rgba(0, 195, 137, 0.6)',
+                        'rgba(0, 195, 137, 0.5)',
+                        'rgba(0, 195, 137, 0.4)',
+                        'rgba(0, 195, 137, 0.3)'
+                    ],
+                    borderColor: [
+                        'rgba(0, 195, 137, 1)',
+                        'rgba(0, 195, 137, 1)',
+                        'rgba(0, 195, 137, 1)',
+                        'rgba(0, 195, 137, 1)',
+                        'rgba(0, 195, 137, 1)'
+                    ],
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                responsive: true,
+                plugins: {
+                    legend: {
+                        display: false
+                    },
+                    title: {
+                        display: true,
+                        text: 'Top Factors in Your Assessment',
+                        color: 'white',
+                        font: {
+                            size: 16
+                        }
+                    }
+                },
+                scales: {
+                    y: {
+                        beginAtZero: true,
+                        ticks: { color: 'white' }
+                    },
+                    x: {
+                        ticks: { color: 'white' }
+                    }
+                }
+            }
+        });
+        {% endif %}
+    </script>
 </body>
 </html>
-<!-- Compare this snippet from templates/result.html: -->
 
 
 

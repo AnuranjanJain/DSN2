@@ -3,26 +3,50 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title >Cardio Guide</title>
+    <title>Cardio Guide</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
 </head>
 <body>
     <div class="header">
+        <div></div>
         <h2>CARDIO GUIDE</h2>
-    </div> <!-- Closing the header div -->
+        <div></div>
+    </div>
+
+    <div class="hero-section">
+        <h1>Your Heart Health Matters</h1>
+        <p>Use our AI-powered tool to assess your cardiovascular risk based on medical and lifestyle factors</p>
+    </div>
 
     <div class="container">
         <div class="card" onclick="location.href='{{ url_for('predict_form') }}';">
-
             <img src="{{ url_for('static', filename='heart.png') }}" alt="Heart Icon">
-            <p>Cardio Checker</p>
+            <div class="card-content">
+                <h3>Heart Risk Assessment</h3>
+                <p>Get your personalized heart disease risk assessment based on your health metrics</p>
+            </div>
         </div>
 
         <div class="card" onclick="location.href='{{ url_for('health_tips') }}';">
-
             <img src="{{ url_for('static', filename='fitness.png') }}" alt="Fitness Icon">
-            <p>Tips for a Healthy Life</p>
+            <div class="card-content">
+                <h3>Health Tips</h3>
+                <p>Learn proven ways to improve your cardiovascular health and reduce risk factors</p>
+            </div>
+        </div>
+
+        <div class="card" onclick="location.href='{{ url_for('about') }}';">
+            <img src="{{ url_for('static', filename='heart.png') }}" alt="About Icon">
+            <div class="card-content">
+                <h3>About the Model</h3>
+                <p>Understand the dataset and AI model behind our heart disease predictions</p>
+            </div>
         </div>
     </div>
+
+    <footer>
+        <p>&copy; 2023 Cardio Guide • AI-Powered Heart Health Assessment</p>
+    </footer>
 </body>
 </html>

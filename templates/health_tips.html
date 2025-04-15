@@ -3,25 +3,114 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Health Tips</title>
+    <title>Heart Health Tips</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
 </head>
 <body>
     <div class="header">
-        <h2>Tips for a Healthy Life</h2>
-        <button class="back-btn" onclick="window.location.href='/';">⬅ Back</button>
+        <div class="back-btn" onclick="location.href='/';">
+            <span>←</span> Back
+        </div>
+        <h2>HEART HEALTH TIPS</h2>
+        <div></div>
     </div>
 
     <div class="tips-container">
-        <h3>🔥 Stay Heart Healthy!</h3>
-        <ul>
-            <li>💪 Exercise at least 30 minutes daily</li>
-            <li>🥗 Eat more fruits & vegetables</li>
-            <li>🚭 Avoid smoking and alcohol</li>
-            <li>💧 Stay hydrated</li>
-            <li>😴 Get 7-8 hours of sleep</li>
-            <li>🩺 Regular health checkups are key!</li>
-        </ul>
+        <div class="tip-category">
+            <div class="tip-header">
+                <div class="tip-icon">🥗</div>
+                <h3>Diet & Nutrition</h3>
+            </div>
+            <div class="tip-content">
+                <p><strong>Focus on heart-healthy foods:</strong> Incorporate more fruits, vegetables, whole grains, lean proteins, and healthy fats into your diet.</p>
+                <p><strong>Reduce saturated and trans fats:</strong> Limit intake of red meat, full-fat dairy, and fried foods to help manage cholesterol levels.</p>
+                <p><strong>Lower sodium consumption:</strong> Aim for less than 2,300mg of sodium per day to help manage blood pressure.</p>
+                <p><strong>Increase fiber intake:</strong> Consume 25-30g of fiber daily through foods like oats, beans, and fruits to help lower cholesterol.</p>
+                <p><strong>Choose healthy fats:</strong> Opt for olive oil, avocados, nuts, and fatty fish rich in omega-3 fatty acids.</p>
+            </div>
+        </div>
+
+        <div class="tip-category">
+            <div class="tip-header">
+                <div class="tip-icon">🏃</div>
+                <h3>Physical Activity</h3>
+            </div>
+            <div class="tip-content">
+                <p><strong>Regular aerobic exercise:</strong> Aim for at least 150 minutes of moderate-intensity activity per week, such as brisk walking, swimming, or cycling.</p>
+                <p><strong>Strength training:</strong> Include muscle-strengthening activities at least twice a week to improve overall cardiovascular health.</p>
+                <p><strong>Daily movement:</strong> Even small amounts of physical activity throughout the day can benefit your heart - take the stairs, walk during breaks.</p>
+                <p><strong>Consistency over intensity:</strong> Regular, moderate exercise is often more beneficial than occasional intense workouts.</p>
+                <p><strong>Find activities you enjoy:</strong> You're more likely to stick with exercise routines that you find pleasurable.</p>
+            </div>
+        </div>
+
+        <div class="tip-category">
+            <div class="tip-header">
+                <div class="tip-icon">🚭</div>
+                <h3>Lifestyle Choices</h3>
+            </div>
+            <div class="tip-content">
+                <p><strong>Quit smoking:</strong> Smoking damages blood vessels and significantly increases heart disease risk - quitting can rapidly improve heart health.</p>
+                <p><strong>Limit alcohol:</strong> If you drink, do so in moderation (no more than 1 drink daily for women, 2 for men).</p>
+                <p><strong>Maintain healthy weight:</strong> Achieving a healthy BMI can reduce strain on your heart and lower disease risk.</p>
+                <p><strong>Manage stress:</strong> Chronic stress contributes to heart disease - practice relaxation techniques such as meditation, deep breathing, or yoga.</p>
+                <p><strong>Prioritize sleep:</strong> Aim for 7-9 hours of quality sleep per night, as poor sleep is linked to increased heart disease risk.</p>
+            </div>
+        </div>
+
+        <div class="tip-category">
+            <div class="tip-header">
+                <div class="tip-icon">🩺</div>
+                <h3>Medical Management</h3>
+            </div>
+            <div class="tip-content">
+                <p><strong>Regular check-ups:</strong> Schedule routine health screenings to monitor blood pressure, cholesterol, and blood sugar levels.</p>
+                <p><strong>Know your numbers:</strong> Understand your key health metrics and work with healthcare providers to keep them in healthy ranges.</p>
+                <p><strong>Medication adherence:</strong> If prescribed medications for heart health, take them as directed by your healthcare provider.</p>
+                <p><strong>Manage underlying conditions:</strong> Effectively treat conditions like diabetes, high blood pressure, and high cholesterol that contribute to heart disease.</p>
+                <p><strong>Family history awareness:</strong> If heart disease runs in your family, be proactive about prevention and early intervention.</p>
+            </div>
+        </div>
+
+        <div class="risk-factors">
+            <h3>Key Risk Factors for Heart Disease</h3>
+            <div class="risk-factor-grid">
+                <div class="risk-factor">
+                    <h4>High Blood Pressure</h4>
+                    <p>Aim for levels below 120/80 mmHg</p>
+                </div>
+                <div class="risk-factor">
+                    <h4>High Cholesterol</h4>
+                    <p>Target total cholesterol under 200 mg/dL</p>
+                </div>
+                <div class="risk-factor">
+                    <h4>Diabetes</h4>
+                    <p>Maintain HbA1c below 7% if diabetic</p>
+                </div>
+                <div class="risk-factor">
+                    <h4>Smoking</h4>
+                    <p>Quitting reduces risk by up to 50% in one year</p>
+                </div>
+                <div class="risk-factor">
+                    <h4>Obesity</h4>
+                    <p>Aim for a BMI between 18.5-24.9</p>
+                </div>
+                <div class="risk-factor">
+                    <h4>Physical Inactivity</h4>
+                    <p>Even 30 minutes daily makes a difference</p>
+                </div>
+            </div>
+        </div>
     </div>
+
+    <div class="action-section">
+        <h3>Ready to check your heart health?</h3>
+        <button onclick="location.href='{{ url_for('predict_form') }}';">Take the Heart Risk Assessment</button>
+    </div>
+
+    <footer>
+        <p>Disclaimer: This information is for educational purposes only and is not a substitute for professional medical advice.</p>
+    </footer>
 </body>
 </html>
