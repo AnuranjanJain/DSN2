@@ -79,8 +79,3 @@ The model is trained on a comprehensive heart disease dataset that includes vari
 ## License
 
 This project is licensed under the MIT License - see the LICENSE file for details.
-
-## Acknowledgments
-
-- Dataset source: [Insert dataset source if applicable]
-- Icons and images: [Insert attribution if necessary] 
