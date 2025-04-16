@@ -19,168 +19,121 @@
     <div class="form-container">
         <div class="form-intro">
             <h3>Enter Your Health Information</h3>
-            <p>Fill in the following information to assess your heart disease risk. All fields are required for accurate prediction.</p>
+            <p>Fill in the following information to assess your heart disease risk using the Framingham model. All fields are required for accurate prediction.</p>
         </div>
 
         <form action="/predict" method="post" id="prediction-form">
             <div class="form-tabs">
-                <div class="tab-btn active" data-tab="basic">Basic Info</div>
-                <div class="tab-btn" data-tab="cardiac">Cardiac Metrics</div>
+                <div class="tab-btn active" data-tab="basic">Demographics</div>
                 <div class="tab-btn" data-tab="lifestyle">Lifestyle</div>
                 <div class="tab-btn" data-tab="medical">Medical History</div>
+                <div class="tab-btn" data-tab="measurements">Measurements</div>
             </div>
 
             <div class="tab-content active" id="basic">
                 <div class="form-group">
                     <label for="age">Age</label>
-                    <input type="number" name="age" id="age" min="18" max="100" required>
+                    <input type="number" name="age" id="age" min="20" max="100" required>
+                </div>
+                
+                <div class="form-group radio-group">
+                    <label>Gender</label>
+                    <div class="radio-options">
+                        <label><input type="radio" name="gender" value="false"> Female</label>
+                        <label><input type="radio" name="gender" value="true"> Male</label>
+                    </div>
                 </div>
                 
                 <div class="form-group">
-                    <label for="systolic_bp">Systolic Blood Pressure (mmHg)</label>
-                    <input type="number" name="systolic_bp" id="systolic_bp" min="80" max="220" required>
-                </div>
-                
-                <div class="form-group">
-                    <label for="diastolic_bp">Diastolic Blood Pressure (mmHg)</label>
-                    <input type="number" name="diastolic_bp" id="diastolic_bp" min="50" max="130" required>
-                </div>
-                
-                <div class="form-group">
-                    <label for="obesity_bmi">BMI</label>
-                    <input type="number" name="obesity_bmi" id="obesity_bmi" min="15" max="45" step="0.1" required>
-                </div>
-                
-                <div class="form-group">
-                    <label for="resting_heart_rate">Resting Heart Rate (BPM)</label>
-                    <input type="number" name="resting_heart_rate" id="resting_heart_rate" min="40" max="120" required>
-                </div>
-            </div>
-
-            <div class="tab-content" id="cardiac">
-                <div class="form-group">
-                    <label for="cholesterol">Total Cholesterol (mg/dl)</label>
-                    <input type="number" name="cholesterol" id="cholesterol" min="100" max="400" required>
-                </div>
-                
-                <div class="form-group">
-                    <label for="triglycerides">Triglycerides (mg/dl)</label>
-                    <input type="number" name="triglycerides" id="triglycerides" min="50" max="500" required>
-                </div>
-                
-                <div class="form-group">
-                    <label for="ldl">LDL Cholesterol (mg/dl)</label>
-                    <input type="number" name="ldl" id="ldl" min="50" max="300" required>
-                </div>
-                
-                <div class="form-group">
-                    <label for="hdl">HDL Cholesterol (mg/dl)</label>
-                    <input type="number" name="hdl" id="hdl" min="20" max="100" required>
-                </div>
-                
-                <div class="form-group">
-                    <label for="cholesterol_hdl_ratio">Cholesterol/HDL Ratio</label>
-                    <input type="number" name="cholesterol_hdl_ratio" id="cholesterol_hdl_ratio" min="1" max="15" step="0.1" required>
+                    <label for="education">Education Level</label>
+                    <select name="education" id="education" required>
+                        <option value="1">Some High School</option>
+                        <option value="2">High School/GED</option>
+                        <option value="3">Some College/Vocational School</option>
+                        <option value="4">College</option>
+                    </select>
                 </div>
             </div>
 
             <div class="tab-content" id="lifestyle">
                 <div class="form-group radio-group">
-                    <label>Smoking</label>
+                    <label>Current Smoker</label>
                     <div class="radio-options">
-                        <label><input type="radio" name="smoking" value="0" checked> No</label>
-                        <label><input type="radio" name="smoking" value="1"> Yes</label>
-                    </div>
-                </div>
-                
-                <div class="form-group radio-group">
-                    <label>Alcohol Consumption</label>
-                    <div class="radio-options">
-                        <label><input type="radio" name="alcohol_consumption" value="0" checked> No</label>
-                        <label><input type="radio" name="alcohol_consumption" value="1"> Yes</label>
-                    </div>
-                </div>
-                
-                <div class="form-group radio-group">
-                    <label>Physical Activity</label>
-                    <div class="radio-options">
-                        <label><input type="radio" name="physical_activity" value="0"> Inactive</label>
-                        <label><input type="radio" name="physical_activity" value="1" checked> Active</label>
+                        <label><input type="radio" name="current_smoker" value="false" checked> No</label>
+                        <label><input type="radio" name="current_smoker" value="true"> Yes</label>
                     </div>
                 </div>
                 
                 <div class="form-group">
-                    <label for="diet_quality">Diet Quality</label>
-                    <select name="diet_quality" id="diet_quality" required>
-                        <option value="Poor">Poor</option>
-                        <option value="Average" selected>Average</option>
-                        <option value="Good">Good</option>
-                    </select>
-                </div>
-                
-                <div class="form-group">
-                    <label for="stress_level">Stress Level</label>
-                    <select name="stress_level" id="stress_level" required>
-                        <option value="Low">Low</option>
-                        <option value="Medium" selected>Medium</option>
-                        <option value="High">High</option>
-                    </select>
+                    <label for="cigs_per_day">Cigarettes Per Day</label>
+                    <input type="number" name="cigs_per_day" id="cigs_per_day" min="0" max="100" value="0">
+                    <small>If you don't smoke, enter 0</small>
                 </div>
             </div>
 
             <div class="tab-content" id="medical">
                 <div class="form-group radio-group">
-                    <label>Diabetes</label>
+                    <label>BP Medication</label>
                     <div class="radio-options">
-                        <label><input type="radio" name="diabetes" value="0" checked> No</label>
-                        <label><input type="radio" name="diabetes" value="1"> Yes</label>
+                        <label><input type="radio" name="bp_meds" value="false" checked> No</label>
+                        <label><input type="radio" name="bp_meds" value="true"> Yes</label>
+                    </div>
+                </div>
+                
+                <div class="form-group radio-group">
+                    <label>Prior Stroke</label>
+                    <div class="radio-options">
+                        <label><input type="radio" name="prevalent_stroke" value="false" checked> No</label>
+                        <label><input type="radio" name="prevalent_stroke" value="true"> Yes</label>
                     </div>
                 </div>
                 
                 <div class="form-group radio-group">
                     <label>Hypertension</label>
                     <div class="radio-options">
-                        <label><input type="radio" name="hypertension" value="0" checked> No</label>
-                        <label><input type="radio" name="hypertension" value="1"> Yes</label>
+                        <label><input type="radio" name="prevalent_hyp" value="false" checked> No</label>
+                        <label><input type="radio" name="prevalent_hyp" value="true"> Yes</label>
                     </div>
                 </div>
                 
                 <div class="form-group radio-group">
-                    <label>ECG Abnormality</label>
+                    <label>Diabetes</label>
                     <div class="radio-options">
-                        <label><input type="radio" name="ecg_abnormality" value="0" checked> No</label>
-                        <label><input type="radio" name="ecg_abnormality" value="1"> Yes</label>
+                        <label><input type="radio" name="diabetes" value="false" checked> No</label>
+                        <label><input type="radio" name="diabetes" value="true"> Yes</label>
                     </div>
                 </div>
-                
-                <div class="form-group radio-group">
-                    <label>Family History of Heart Disease</label>
-                    <div class="radio-options">
-                        <label><input type="radio" name="family_history" value="0" checked> No</label>
-                        <label><input type="radio" name="family_history" value="1"> Yes</label>
-                    </div>
-                </div>
-                
-                <div class="form-group radio-group">
-                    <label>Previous Stroke</label>
-                    <div class="radio-options">
-                        <label><input type="radio" name="stroke_history" value="0" checked> No</label>
-                        <label><input type="radio" name="stroke_history" value="1"> Yes</label>
-                    </div>
-                </div>
-                
-                <div class="form-group radio-group">
-                    <label>Kidney Disease</label>
-                    <div class="radio-options">
-                        <label><input type="radio" name="kidney_disease" value="0" checked> No</label>
-                        <label><input type="radio" name="kidney_disease" value="1"> Yes</label>
-                    </div>
-                </div>
+            </div>
 
+            <div class="tab-content" id="measurements">
                 <div class="form-group">
-                    <label for="cardiovascular_risk_score">Cardiovascular Risk Score (if known)</label>
-                    <input type="number" name="cardiovascular_risk_score" id="cardiovascular_risk_score" min="60" max="150" step="0.1">
-                    <small>Leave blank if unknown. This will be calculated.</small>
+                    <label for="tot_chol">Total Cholesterol (mg/dL)</label>
+                    <input type="number" name="tot_chol" id="tot_chol" min="100" max="600" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="sys_bp">Systolic Blood Pressure (mmHg)</label>
+                    <input type="number" name="sys_bp" id="sys_bp" min="80" max="300" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="dia_bp">Diastolic Blood Pressure (mmHg)</label>
+                    <input type="number" name="dia_bp" id="dia_bp" min="40" max="150" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="bmi">BMI (kg/m²)</label>
+                    <input type="number" name="bmi" id="bmi" min="15" max="60" step="0.1" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="heart_rate">Heart Rate (BPM)</label>
+                    <input type="number" name="heart_rate" id="heart_rate" min="40" max="200" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="glucose">Glucose (mg/dL)</label>
+                    <input type="number" name="glucose" id="glucose" min="40" max="400" required>
                 </div>
             </div>
 
@@ -250,45 +203,79 @@
             // Hide all tab contents
             tabContents.forEach(content => content.classList.remove('active'));
             
-            // Show current tab content
+            // Show current tab
             tabContents[index].classList.add('active');
             
-            // Update active tab indicator
-            tabs.forEach(tab => tab.classList.remove('active'));
-            tabs[index].classList.add('active');
+            // Update tab buttons
+            tabs.forEach((tab, i) => {
+                if (i === index) {
+                    tab.classList.add('active');
+                } else {
+                    tab.classList.remove('active');
+                }
+            });
             
-            // Update buttons
+            // Update navigation buttons
             updateButtons();
         }
-
-        // Update navigation buttons
+        
+        // Update button states
         function updateButtons() {
             prevBtn.disabled = currentTab === 0;
             
             if (currentTab === tabs.length - 1) {
                 nextBtn.style.display = 'none';
-                submitBtn.style.display = 'inline';
+                submitBtn.style.display = 'block';
             } else {
-                nextBtn.style.display = 'inline';
+                nextBtn.style.display = 'block';
                 submitBtn.style.display = 'none';
             }
         }
-
+        
         // Validate current tab
         function validateCurrentTab() {
-            const currentFields = tabContents[currentTab].querySelectorAll('input[required], select[required]');
+            const currentTabContent = tabContents[currentTab];
+            const inputs = currentTabContent.querySelectorAll('input[required], select[required]');
+            
             let valid = true;
             
-            currentFields.forEach(field => {
-                if (!field.value) {
-                    field.classList.add('invalid');
+            inputs.forEach(input => {
+                if (!input.value) {
                     valid = false;
+                    input.classList.add('error');
                 } else {
-                    field.classList.remove('invalid');
+                    input.classList.remove('error');
                 }
             });
             
             return valid;
+        }
+        
+        // Toggle cigarettes per day field based on smoking status
+        document.querySelectorAll('input[name="current_smoker"]').forEach(radio => {
+            radio.addEventListener('change', function() {
+                const cigsPerDay = document.getElementById('cigs_per_day');
+                if (this.value === 'true') {
+                    cigsPerDay.setAttribute('required', 'required');
+                    cigsPerDay.min = 1;
+                    cigsPerDay.value = cigsPerDay.value === '0' ? '' : cigsPerDay.value;
+                } else {
+                    cigsPerDay.removeAttribute('required');
+                    cigsPerDay.min = 0;
+                    cigsPerDay.value = 0;
+                }
+            });
+        });
+
+        // Calculate BMI helper (optional)
+        function calculateBMI() {
+            const weight = parseFloat(document.getElementById('weight').value);
+            const height = parseFloat(document.getElementById('height').value) / 100; // cm to m
+            
+            if (weight && height) {
+                const bmi = (weight / (height * height)).toFixed(1);
+                document.getElementById('bmi').value = bmi;
+            }
         }
     </script>
 </body>

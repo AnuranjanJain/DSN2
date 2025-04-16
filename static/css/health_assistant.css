@@ -1,0 +1,322 @@
+/* Health Assistant Styling */
+
+/* Base Styles */
+:root {
+    --primary-color: #4CAF50;
+    --secondary-color: #2196F3;
+    --background-color: #f9f9f9;
+    --text-color: #333;
+    --light-gray: #e0e0e0;
+    --dark-gray: #757575;
+    --white: #ffffff;
+    --success-color: #4CAF50;
+    --warning-color: #FFC107;
+    --danger-color: #F44336;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Roboto', Arial, sans-serif;
+    line-height: 1.6;
+    color: var(--text-color);
+    background-color: var(--background-color);
+}
+
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+/* Header Styles */
+.header {
+    background-color: var(--white);
+    padding: 20px 0;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    margin-bottom: 30px;
+}
+
+.header-content {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.logo {
+    font-size: 24px;
+    font-weight: 700;
+    color: var(--primary-color);
+    display: flex;
+    align-items: center;
+}
+
+.logo i {
+    margin-right: 10px;
+}
+
+/* Feature Sections */
+.features-section {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 25px;
+    margin-bottom: 40px;
+}
+
+.feature-card {
+    background-color: var(--white);
+    border-radius: 8px;
+    padding: 25px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease;
+}
+
+.feature-card:hover {
+    transform: translateY(-5px);
+}
+
+.feature-icon {
+    font-size: 2.5rem;
+    color: var(--primary-color);
+    margin-bottom: 15px;
+}
+
+.feature-title {
+    font-size: 1.4rem;
+    margin-bottom: 15px;
+    color: var(--primary-color);
+}
+
+.feature-content {
+    color: var(--dark-gray);
+}
+
+/* Health Assistant Chat */
+.health-assistant-wrapper {
+    position: fixed;
+    bottom: 30px;
+    right: 30px;
+    z-index: 1000;
+}
+
+.health-assistant-btn {
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    background-color: var(--primary-color);
+    color: var(--white);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    transition: all 0.3s ease;
+}
+
+.health-assistant-btn:hover {
+    background-color: #3d8b40;
+    transform: scale(1.1);
+}
+
+.health-assistant-btn i {
+    font-size: 24px;
+}
+
+.health-assistant-container {
+    position: fixed;
+    bottom: 100px;
+    right: 30px;
+    width: 350px;
+    height: 500px;
+    background-color: var(--white);
+    border-radius: 10px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    transform: scale(0);
+    transform-origin: bottom right;
+    transition: transform 0.3s ease;
+    z-index: 999;
+}
+
+.health-assistant-container.active {
+    transform: scale(1);
+}
+
+.health-assistant-header {
+    background-color: var(--primary-color);
+    color: var(--white);
+    padding: 15px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.health-assistant-title {
+    display: flex;
+    align-items: center;
+}
+
+.health-assistant-title i {
+    margin-right: 10px;
+    font-size: 20px;
+}
+
+.health-assistant-close {
+    background: none;
+    border: none;
+    color: var(--white);
+    cursor: pointer;
+    font-size: 18px;
+    transition: all 0.2s ease;
+}
+
+.health-assistant-close:hover {
+    transform: scale(1.2);
+}
+
+.health-assistant-messages {
+    flex: 1;
+    padding: 15px;
+    overflow-y: auto;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    background-color: #f5f5f5;
+}
+
+.message {
+    max-width: 80%;
+    padding: 10px 15px;
+    border-radius: 18px;
+    margin-bottom: 5px;
+    word-wrap: break-word;
+}
+
+.user-message {
+    align-self: flex-end;
+    background-color: var(--secondary-color);
+    color: var(--white);
+    border-bottom-right-radius: 5px;
+}
+
+.bot-message {
+    align-self: flex-start;
+    background-color: #e9e9e9;
+    color: var(--text-color);
+    border-bottom-left-radius: 5px;
+}
+
+.typing-indicator {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    padding: 10px 15px;
+}
+
+.typing-indicator span {
+    width: 8px;
+    height: 8px;
+    background-color: var(--dark-gray);
+    border-radius: 50%;
+    display: inline-block;
+    animation: pulse 1.5s infinite ease-in-out;
+}
+
+.typing-indicator span:nth-child(2) {
+    animation-delay: 0.2s;
+}
+
+.typing-indicator span:nth-child(3) {
+    animation-delay: 0.4s;
+}
+
+@keyframes pulse {
+    0%, 100% {
+        transform: scale(1);
+        opacity: 0.5;
+    }
+    50% {
+        transform: scale(1.2);
+        opacity: 1;
+    }
+}
+
+.health-assistant-input-container {
+    padding: 15px;
+    display: flex;
+    border-top: 1px solid var(--light-gray);
+    background-color: var(--white);
+}
+
+.health-assistant-input {
+    flex: 1;
+    border: 1px solid var(--light-gray);
+    border-radius: 20px;
+    padding: 10px 15px;
+    font-size: 14px;
+    outline: none;
+    transition: border 0.2s ease;
+}
+
+.health-assistant-input:focus {
+    border-color: var(--primary-color);
+}
+
+.health-assistant-send {
+    background-color: var(--primary-color);
+    color: var(--white);
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    margin-left: 10px;
+    border: none;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+}
+
+.health-assistant-send:hover {
+    background-color: #3d8b40;
+}
+
+.health-assistant-send i {
+    font-size: 16px;
+}
+
+/* Responsive Styles */
+@media (max-width: 768px) {
+    .features-section {
+        grid-template-columns: 1fr;
+    }
+    
+    .health-assistant-container {
+        width: 300px;
+        height: 450px;
+        bottom: 80px;
+        right: 20px;
+    }
+    
+    .health-assistant-btn {
+        width: 50px;
+        height: 50px;
+        right: 20px;
+        bottom: 20px;
+    }
+}
+
+@media (max-width: 480px) {
+    .health-assistant-container {
+        width: 90%;
+        height: 400px;
+        bottom: 80px;
+        right: 5%;
+    }
+} 

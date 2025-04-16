@@ -35,9 +35,21 @@ ENV/
 Thumbs.db
 
 # Large files
-*.pkl
-*.pk1
-*.model
+# Commenting out model files since we want to include model1.pk1 in the repository
+# *.pkl
+# *.pk1
+# *.model
 
 # Logs
-*.log 
+*.log
+
+# Temporary/development files
+etting terminal...
+dirinfo.png
+test_imports.py
+**/Screenshot/*.png
+*.bak
+*.tmp
+
+# Keep model1.pk1 for the application to work
+!model1.pk1 

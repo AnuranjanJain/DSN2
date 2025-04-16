@@ -1,0 +1,394 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Health Assistant | Cardio Guide</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        .flex {
+            display: flex;
+        }
+        
+        .items-center {
+            align-items: center;
+        }
+        
+        .w-full {
+            width: 100%;
+        }
+        
+        .mx-auto {
+            margin-left: auto;
+            margin-right: auto;
+        }
+        
+        .px-4 {
+            padding-left: 1rem;
+            padding-right: 1rem;
+        }
+        
+        .py-8 {
+            padding-top: 2rem;
+            padding-bottom: 2rem;
+        }
+        
+        .mt-10 {
+            margin-top: 2.5rem;
+        }
+        
+        .mr-2 {
+            margin-right: 0.5rem;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        .nav-menu {
+            display: flex;
+            gap: 20px;
+            margin-left: auto;
+        }
+        
+        .nav-link {
+            color: white;
+            text-decoration: none;
+            padding: 8px 12px;
+            border-radius: 4px;
+            transition: background-color 0.3s;
+        }
+        
+        .nav-link:hover, .nav-link.active {
+            background-color: rgba(0, 195, 137, 0.2);
+        }
+        
+        .nav-link.active {
+            color: #00C389;
+            font-weight: bold;
+        }
+        
+        .chat-container {
+            max-width: 800px;
+            margin: 0 auto;
+            background-color: rgba(0, 0, 0, 0.4);
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            height: 600px;
+        }
+        
+        .chat-header {
+            background: linear-gradient(to right, #00C389, #008F63);
+            color: white;
+            padding: 15px;
+            text-align: center;
+            font-weight: bold;
+            border-top-left-radius: 10px;
+            border-top-right-radius: 10px;
+        }
+        
+        .chat-messages {
+            flex: 1;
+            padding: 20px;
+            overflow-y: auto;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .message {
+            max-width: 80%;
+            margin-bottom: 15px;
+            padding: 10px 15px;
+            border-radius: 18px;
+            line-height: 1.4;
+            word-wrap: break-word;
+        }
+        
+        .bot-message {
+            background-color: #1E1E1E;
+            color: #f9f9f9;
+            align-self: flex-start;
+            border-bottom-left-radius: 5px;
+        }
+        
+        .user-message {
+            background-color: #00C389;
+            color: white;
+            align-self: flex-end;
+            border-bottom-right-radius: 5px;
+        }
+        
+        .chat-input {
+            display: flex;
+            padding: 15px;
+            background-color: #1E1E1E;
+            border-top: 1px solid #333;
+        }
+        
+        .chat-input input {
+            flex: 1;
+            padding: 12px 15px;
+            border: none;
+            border-radius: 25px;
+            background-color: #2A2A2A;
+            color: white;
+            font-size: 1rem;
+        }
+        
+        .chat-input input:focus {
+            outline: none;
+            box-shadow: 0 0 0 2px rgba(0, 195, 137, 0.5);
+        }
+        
+        .send-btn {
+            background-color: #00C389;
+            color: white;
+            border: none;
+            border-radius: 50%;
+            width: 45px;
+            height: 45px;
+            margin-left: 10px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.2s;
+        }
+        
+        .send-btn:hover {
+            background-color: #00A371;
+            transform: scale(1.05);
+        }
+        
+        .welcome-message {
+            text-align: center;
+            margin-bottom: 30px;
+            color: #00C389;
+        }
+        
+        .typing-indicator {
+            display: flex;
+            align-items: center;
+            margin-bottom: 15px;
+            display: none;
+        }
+        
+        .typing-indicator span {
+            height: 8px;
+            width: 8px;
+            background-color: #555;
+            border-radius: 50%;
+            display: inline-block;
+            margin: 0 2px;
+            animation: typing 1.4s infinite ease-in-out;
+        }
+        
+        .typing-indicator span:nth-child(2) {
+            animation-delay: 0.2s;
+        }
+        
+        .typing-indicator span:nth-child(3) {
+            animation-delay: 0.4s;
+        }
+        
+        @keyframes typing {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.5); background-color: #00C389; }
+            100% { transform: scale(1); }
+        }
+        
+        .suggestion-pills {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin-top: 20px;
+        }
+        
+        .suggestion-pill {
+            background-color: rgba(0, 195, 137, 0.2);
+            color: #00C389;
+            padding: 8px 15px;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            cursor: pointer;
+            transition: all 0.2s;
+            border: 1px solid rgba(0, 195, 137, 0.3);
+        }
+        
+        .suggestion-pill:hover {
+            background-color: rgba(0, 195, 137, 0.3);
+            transform: translateY(-2px);
+        }
+    </style>
+</head>
+<body>
+    <header class="header bg-gradient-to-r from-gray-900 to-black">
+        <div class="flex items-center w-full">
+            <h2>Health Assistant</h2>
+            <nav class="nav-menu">
+                <a href="/" class="nav-link">Home</a>
+                <a href="/predict_form" class="nav-link">Predict</a>
+                <a href="/health_tips" class="nav-link">Health Tips</a>
+                <a href="/about" class="nav-link">About</a>
+                <a href="/chatbot" class="nav-link active">Assistant</a>
+            </nav>
+        </div>
+        <a href="/" class="back-btn">
+            <span>&larr;</span>
+            Back
+        </a>
+    </header>
+
+    <div class="container mx-auto px-4 py-8">
+        <h1 class="welcome-message">Your Personal Health Assistant</h1>
+        
+        <div class="chat-container">
+            <div class="chat-header">
+                <i class="fas fa-heart-pulse mr-2"></i> Cardio Guide Health Assistant
+            </div>
+            
+            <div id="chat-messages" class="chat-messages">
+                <div class="message bot-message">
+                    Hello! I'm your Cardio Guide Health Assistant. I can help answer questions about heart health, risk factors, and lifestyle changes. How can I assist you today?
+                </div>
+                
+                <div class="suggestion-pills">
+                    <div class="suggestion-pill" onclick="sendSuggestion('What are the main risk factors for heart disease?')">Heart disease risk factors</div>
+                    <div class="suggestion-pill" onclick="sendSuggestion('How can I lower my cholesterol naturally?')">Lowering cholesterol</div>
+                    <div class="suggestion-pill" onclick="sendSuggestion('What exercises are best for heart health?')">Heart-healthy exercises</div>
+                    <div class="suggestion-pill" onclick="sendSuggestion('What does systolic and diastolic blood pressure mean?')">Blood pressure explained</div>
+                </div>
+                
+                <div id="typing-indicator" class="typing-indicator message bot-message">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </div>
+            </div>
+            
+            <div class="chat-input">
+                <input type="text" id="user-input" placeholder="Type your question about heart health..." autofocus>
+                <button id="send-button" class="send-btn">
+                    <i class="fas fa-paper-plane"></i>
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <footer class="mt-10 py-6 px-4 bg-gray-900">
+        <div class="container mx-auto text-center">
+            <p>&copy; 2024 Cardio Guide • AI-Powered Heart Health Assessment</p>
+        </div>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const chatMessages = document.getElementById('chat-messages');
+            const userInput = document.getElementById('user-input');
+            const sendButton = document.getElementById('send-button');
+            const typingIndicator = document.getElementById('typing-indicator');
+            
+            // Function to add a new message to the chat
+            function addMessage(message, isUser = false) {
+                const messageDiv = document.createElement('div');
+                messageDiv.classList.add('message');
+                messageDiv.classList.add(isUser ? 'user-message' : 'bot-message');
+                messageDiv.textContent = message;
+                
+                // Insert before typing indicator
+                chatMessages.insertBefore(messageDiv, typingIndicator);
+                
+                // Scroll to the bottom
+                chatMessages.scrollTop = chatMessages.scrollHeight;
+            }
+            
+            // Function to show typing indicator
+            function showTypingIndicator() {
+                typingIndicator.style.display = 'flex';
+                chatMessages.scrollTop = chatMessages.scrollHeight;
+            }
+            
+            // Function to hide typing indicator
+            function hideTypingIndicator() {
+                typingIndicator.style.display = 'none';
+            }
+            
+            // Function to get bot response from server
+            async function getBotResponse(userMessage) {
+                try {
+                    const response = await fetch('/api/health-assistant', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                        },
+                        body: JSON.stringify({ message: userMessage }),
+                    });
+                    
+                    const data = await response.json();
+                    
+                    if (data.status === 'success') {
+                        return data.response;
+                    } else {
+                        return 'Sorry, I encountered an error. Please try asking something else.';
+                    }
+                } catch (error) {
+                    console.error('Error:', error);
+                    return 'Sorry, I encountered an error. Please try again later.';
+                }
+            }
+            
+            // Function to handle sending messages
+            async function sendMessage() {
+                const message = userInput.value.trim();
+                
+                if (message === '') return;
+                
+                // Add user message to chat
+                addMessage(message, true);
+                
+                // Clear input
+                userInput.value = '';
+                
+                // Show typing indicator
+                showTypingIndicator();
+                
+                // Get bot response with artificial delay for typing effect
+                setTimeout(async () => {
+                    const botResponse = await getBotResponse(message);
+                    
+                    // Hide typing indicator
+                    hideTypingIndicator();
+                    
+                    // Add bot response to chat
+                    addMessage(botResponse);
+                }, 1000 + Math.random() * 1000); // Random delay between 1-2 seconds
+            }
+            
+            // Event listener for send button
+            sendButton.addEventListener('click', sendMessage);
+            
+            // Event listener for Enter key
+            userInput.addEventListener('keypress', function(event) {
+                if (event.key === 'Enter') {
+                    sendMessage();
+                }
+            });
+            
+            // Hide typing indicator initially
+            hideTypingIndicator();
+        });
+        
+        // Function to handle suggestion pills
+        function sendSuggestion(text) {
+            document.getElementById('user-input').value = text;
+            document.getElementById('send-button').click();
+        }
+    </script>
+</body>
+</html> 

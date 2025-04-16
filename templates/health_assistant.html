@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Health Assistant</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/health_assistant.css') }}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <div class="main-content">
+        <header>
+            <h1>Your Health Assistant</h1>
+            <p>Get personalized health recommendations and answers to your medical questions</p>
+        </header>
+
+        <section class="features">
+            <div class="feature-card">
+                <i class="fas fa-heartbeat"></i>
+                <h3>Health Monitoring</h3>
+                <p>Track your vital signs and get insights about your health status</p>
+            </div>
+            <div class="feature-card">
+                <i class="fas fa-pills"></i>
+                <h3>Medication Reminders</h3>
+                <p>Never miss a dose with our smart medication reminder system</p>
+            </div>
+            <div class="feature-card">
+                <i class="fas fa-running"></i>
+                <h3>Fitness Tracking</h3>
+                <p>Monitor your physical activity and get personalized workout plans</p>
+            </div>
+        </section>
+
+        <!-- Health Assistant Chat Interface -->
+        <button id="health-assistant-btn" class="health-assistant-btn">
+            <i class="fas fa-comment-medical"></i>
+        </button>
+
+        <div id="health-assistant-container" class="health-assistant-container">
+            <div class="health-assistant-header">
+                <div class="health-assistant-title">
+                    <i class="fas fa-robot"></i> Health Assistant
+                </div>
+                <button id="health-assistant-close" class="health-assistant-close">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <div id="health-assistant-messages" class="health-assistant-messages"></div>
+            <div class="health-assistant-input-area">
+                <input type="text" id="health-assistant-input" placeholder="Type your health question here...">
+                <button id="health-assistant-send">
+                    <i class="fas fa-paper-plane"></i>
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <script src="{{ url_for('static', filename='js/health_assistant.js') }}"></script>
+</body>
+</html> 

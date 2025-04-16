@@ -16,7 +16,7 @@
 
     <div class="hero-section">
         <h1>Your Heart Health Matters</h1>
-        <p>Use our AI-powered tool to assess your cardiovascular risk based on medical and lifestyle factors</p>
+        <p>Use our AI-powered tool to assess your cardiovascular risk based on the Framingham Heart Study</p>
     </div>
 
     <div class="container">
@@ -24,7 +24,7 @@
             <img src="{{ url_for('static', filename='heart.png') }}" alt="Heart Icon">
             <div class="card-content">
                 <h3>Heart Risk Assessment</h3>
-                <p>Get your personalized heart disease risk assessment based on your health metrics</p>
+                <p>Get your personalized 10-year heart disease risk assessment based on validated medical factors</p>
             </div>
         </div>
 
@@ -40,13 +40,65 @@
             <img src="{{ url_for('static', filename='heart.png') }}" alt="About Icon">
             <div class="card-content">
                 <h3>About the Model</h3>
-                <p>Understand the dataset and AI model behind our heart disease predictions</p>
+                <p>Understand the Framingham dataset and Random Forest model behind our heart disease predictions</p>
             </div>
+        </div>
+        
+        <div class="card" onclick="location.href='{{ url_for('chatbot') }}';">
+            <img src="{{ url_for('static', filename='chat.png') }}" alt="Chat Icon">
+            <div class="card-content">
+                <h3>Health Assistant</h3>
+                <p>Chat with our AI-powered health assistant for personalized cardiovascular health guidance</p>
+            </div>
+        </div>
+    </div>
+    
+    <div class="info-banner">
+        <div class="info-content">
+            <h3>Based on the Framingham Heart Study</h3>
+            <p>Our predictions utilize data from one of the longest-running cardiovascular cohort studies in the world, providing reliable risk assessment using proven medical factors.</p>
+            <a href="{{ url_for('about') }}" class="learn-more">Learn More</a>
         </div>
     </div>
 
     <footer>
-        <p>&copy; 2023 Cardio Guide • AI-Powered Heart Health Assessment</p>
+        <p>&copy; 2024 Cardio Guide • AI-Powered Heart Health Assessment using Framingham Model</p>
     </footer>
+    
+    <style>
+        .info-banner {
+            background: linear-gradient(to right, rgba(0, 0, 0, 0.7), rgba(0, 40, 30, 0.8));
+            padding: 2rem;
+            margin: 2rem 0;
+            border-radius: 8px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+        }
+        
+        .info-content {
+            max-width: 800px;
+            margin: 0 auto;
+            text-align: center;
+        }
+        
+        .info-content h3 {
+            color: #00C389;
+            margin-bottom: 1rem;
+        }
+        
+        .learn-more {
+            display: inline-block;
+            margin-top: 1rem;
+            padding: 0.5rem 1.5rem;
+            background-color: #00C389;
+            color: white;
+            text-decoration: none;
+            border-radius: 4px;
+            transition: background-color 0.3s;
+        }
+        
+        .learn-more:hover {
+            background-color: #00A371;
+        }
+    </style>
 </body>
 </html>
