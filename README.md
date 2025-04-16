@@ -172,14 +172,13 @@ This project is licensed under the MIT License - see the LICENSE file for detail
 
 ## 📞 Contact
 
-Your Name - [@yourtwitter](https://twitter.com/yourtwitter) - email@example.com
 
-Project Link: [https://github.com/yourusername/cardio-guide](https://github.com/yourusername/cardio-guide)
+Anuranjan Jain - [@jainanuranjan](https://twitter.com/jainanuranjan) 
 
----
+Project Link: [https://github.com/anuranjanjain/DSN2](https://github.com/anuranjanjain/DSN2)
+
+
 
 <div align="center">
   <p>Made with ❤️ for heart health</p>
 </div>
-
-
