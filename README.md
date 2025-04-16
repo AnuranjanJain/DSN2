@@ -85,5 +85,4 @@ This project is licensed under the MIT License - see the LICENSE file for detail
 
 - Based on the Framingham Heart Study dataset
 - Implementation using Random Forest classification model
-=======
->>>>>>> 4f53e2adef4e75aa7c203255d773e0695d74fe0b
+
