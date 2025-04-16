@@ -172,11 +172,12 @@ This project is licensed under the MIT License - see the LICENSE file for detail
 
 ## 📞 Contact
 
+
 Anuranjan Jain - [@jainanuranjan](https://twitter.com/jainanuranjan) 
 
 Project Link: [https://github.com/anuranjanjain/DSN2](https://github.com/anuranjanjain/DSN2)
 
----
+
 
 <div align="center">
   <p>Made with ❤️ for heart health</p>

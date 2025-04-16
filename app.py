@@ -3,9 +3,10 @@ import numpy as np
 import pandas as pd
 import json
 import os
-import random
 import re
+import random
 from model import FraminghamModel, get_model_features, predict
+import chatbot_responses as cr
 
 # Create Flask app
 app = Flask(__name__)
@@ -211,77 +212,32 @@ def health_assistant_api():
         
         user_message = user_message.lower().strip()
         
-        # Simple exact question matching
-        question_answers = {
-            "how can i lower my cholesterol naturally": "To lower cholesterol naturally: eat heart-healthy foods like oats, fatty fish, nuts, and foods rich in soluble fiber. Exercise regularly (aim for 30 minutes daily), lose weight if needed, quit smoking, and reduce alcohol consumption. Consider plant sterols and fiber supplements under medical guidance.",
-            
-            "what exercises are best for heart health": "The best exercises for heart health include: 1) Aerobic activities like walking, jogging, cycling, or swimming (150 minutes/week), 2) Interval training which alternates intense activity with recovery periods, 3) Strength training with weights or resistance bands (2-3 times weekly), and 4) Flexibility exercises. Always start gradually and consult a doctor if you have existing heart conditions.",
-            
-            "what does systolic and diastolic blood pressure mean": "Blood pressure readings have two numbers: Systolic (the top number) measures the pressure in your arteries when your heart beats. Diastolic (the bottom number) measures the pressure in your arteries when your heart rests between beats. Normal blood pressure is below 120/80 mmHg. High blood pressure increases heart disease risk and often has no symptoms.",
-            
-            "what are the main risk factors for heart disease": "Major heart disease risk factors include: age (45+ for men, 55+ for women), family history, high blood pressure, high cholesterol, smoking, diabetes, obesity, physical inactivity, unhealthy diet, excessive alcohol, and chronic stress. Some factors can't be changed, but many can be managed with lifestyle modifications and appropriate medical care."
-        }
-        
         # Check for exact match first
-        if user_message in question_answers:
+        if user_message in cr.QUESTION_ANSWERS:
             return jsonify({
                 'status': 'success',
-                'response': question_answers[user_message]
+                'response': cr.QUESTION_ANSWERS[user_message]
+            })
+        
+        # Check for random health tip request
+        if re.search(r'\b(tip|advice|suggestion)\b', user_message):
+            return jsonify({
+                'status': 'success',
+                'response': random.choice(cr.HEALTH_TIPS)
             })
         
         # Pattern matching for common questions
-        if re.search(r'cholesterol', user_message):
-            return jsonify({
-                'status': 'success',
-                'response': "To lower cholesterol naturally: eat heart-healthy foods (oats, fatty fish, nuts), exercise regularly, lose weight if needed, quit smoking, and reduce alcohol consumption. Consider plant sterols and fiber supplements under medical guidance."
-            })
-        
-        if re.search(r'exercise|workout', user_message):
-            return jsonify({
-                'status': 'success',
-                'response': "The best exercises for heart health include aerobic activities (walking, jogging, cycling, swimming), interval training, and strength training. Aim for at least 150 minutes of moderate activity per week, spread across most days."
-            })
-            
-        if re.search(r'blood pressure|hypertension', user_message):
-            return jsonify({
-                'status': 'success',
-                'response': "Blood pressure has two numbers: Systolic (top) measures pressure during heartbeats, while diastolic (bottom) measures pressure between beats. Normal is below 120/80 mmHg. High blood pressure increases heart disease risk and often has no symptoms."
-            })
-            
-        if re.search(r'diet|food|eat', user_message):
-            return jsonify({
-                'status': 'success',
-                'response': "A heart-healthy diet includes fruits, vegetables, whole grains, lean protein, fish rich in omega-3s, nuts, and healthy oils. Limit saturated fats, trans fats, sodium, added sugars, and processed foods. The Mediterranean and DASH diets are excellent for heart health."
-            })
-            
-        if re.search(r'heart.*(disease|attack|risk)', user_message):
-            return jsonify({
-                'status': 'success',
-                'response': "Major heart disease risk factors include high blood pressure, high cholesterol, smoking, diabetes, obesity, physical inactivity, and family history. Signs of heart attack may include chest pain/pressure, shortness of breath, and pain radiating to the arm, jaw, or back. If you suspect a heart attack, seek emergency help immediately."
-            })
-            
-        if re.search(r'(hi|hello|hey)', user_message):
-            return jsonify({
-                'status': 'success',
-                'response': "Hello! I'm your Cardio Guide Health Assistant. I can help answer questions about heart health, risk factors, and lifestyle changes. How can I assist you today?"
-            })
-            
-        if re.search(r'(thank you|thanks)', user_message):
-            return jsonify({
-                'status': 'success',
-                'response': "You're welcome! Feel free to ask any other questions about heart health. I'm here to help."
-            })
-            
-        if re.search(r'heart.*(health|lifestyle)', user_message):
-            return jsonify({
-                'status': 'success',
-                'response': "A heart-healthy lifestyle includes: 1) Regular physical activity (150+ minutes weekly), 2) Balanced diet rich in fruits, vegetables, whole grains, and lean proteins, 3) Limited sodium, saturated fat, and added sugars, 4) No smoking, 5) Limited alcohol, 6) Healthy weight maintenance, 7) Stress management, and 8) Regular health checkups."
-            })
+        for pattern, response in cr.PATTERN_RESPONSES.items():
+            if re.search(pattern, user_message):
+                return jsonify({
+                    'status': 'success',
+                    'response': response
+                })
         
         # Default response if no patterns match
         return jsonify({
             'status': 'success',
-            'response': "I'm your heart health assistant. I can answer questions about heart disease, cholesterol, blood pressure, exercise, and heart-healthy diets. How can I help you with your cardiovascular health today?"
+            'response': cr.DEFAULT_RESPONSE
         })
         
     except Exception as e:
