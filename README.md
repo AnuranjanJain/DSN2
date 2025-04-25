@@ -150,7 +150,7 @@ The model achieves the following performance metrics on the test dataset:
 The application is fully responsive and works seamlessly across desktop, tablet, and mobile devices.
 
 <div align="center">
-  <img src="static/images/screenshots/mobile_view.png" alt="Mobile View" width="200">
+  <img src="Screenshot/mobile.png" alt="Mobile View" width="200">
   <p><i>Cardio Guide on mobile devices</i></p>
 </div>
 
@@ -167,6 +167,8 @@ Contributions are welcome! Please feel free to submit a Pull Request.
 ## 📄 License
 
 This project is licensed under the MIT License - see the LICENSE file for details.
+
+Dataset Link : [framingham](https://www.kaggle.com/datasets/aasheesh200/framingham-heart-study-dataset?select=framingham.csv)
 
 ## 📞 Contact
 
