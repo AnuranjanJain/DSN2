@@ -1,7 +1,7 @@
 # 🫀 Cardio Guide - Heart Disease Risk Predictor
 
 <div align="center">
-  <img src="static/images/logo.png" alt="Cardio Guide Logo" width="250">
+  <img src="static/cg.png" alt="Cardio Guide Logo" width="250">
   <p><i>AI-powered heart disease risk prediction based on the Framingham Heart Study</i></p>
   
   ![Python](https://img.shields.io/badge/Python-3.8+-blue.svg)
@@ -14,7 +14,7 @@
 
 Cardio Guide is an interactive web application that uses machine learning to predict an individual's 10-year risk of developing coronary heart disease. Built with the validated Framingham Heart Study model, it provides personalized risk assessment and evidence-based recommendations for heart health management.
 
-![Dashboard Screenshot](static/images/screenshots/dashboard.png)
+![Dashboard Screenshot](static/images/screenshots/homepage.png)
 *The Cardio Guide homepage with risk assessment options*
 
 ## ✨ Key Features
@@ -22,31 +22,31 @@ Cardio Guide is an interactive web application that uses machine learning to pre
 ### 🔍 Personalized Heart Risk Assessment
 Analyze your risk factors using the scientifically validated Framingham Heart Study model to receive a personalized 10-year coronary heart disease risk prediction.
 
-![Assessment Form](static/images/screenshots/assessment_form.png)
+![Assessment Form](static/images/screenshots/riskcalc.png)
 *The multi-step assessment form collects relevant health information*
 
 ### 📊 Interactive Results Dashboard
 Receive a comprehensive breakdown of your risk factors with detailed visualizations showing how each parameter contributes to your overall heart disease risk.
 
-![Results Dashboard](static/images/screenshots/results_dashboard.png)
+![Results Dashboard](static/images/screenshots/calcres.png)
 *Detailed risk assessment results with visual indicators*
 
 ### 💬 AI-Powered Health Assistant
 Get answers to your heart health questions through our AI health assistant that provides evidence-based information on heart disease, risk factors, and lifestyle modifications.
 
-![Health Assistant](static/images/screenshots/health_assistant.png)
+![Health Assistant](static/images/screenshots/chatbot.png)
 *The AI-powered health assistant answering questions about heart health*
 
 ### 💡 Personalized Health Tips
 Access tailored recommendations for improving cardiovascular health based on scientific research and clinical guidelines.
 
-![Health Tips](static/images/screenshots/health_tips.png)
+![Health Tips](static/images/screenshots/healthtips.png)
 *Curated heart health tips and lifestyle recommendations*
 
 ### ℹ️ Educational Resources
 Learn about the Framingham Heart Study, risk factors, and how the predictive model works through our educational resources.
 
-![About the Model](static/images/screenshots/about_model.png)
+![About the Model](static/images/screenshots/aboutmodel.png)
 *Information about the Framingham model and its performance metrics*
 
 ## 🚀 Getting Started
@@ -87,10 +87,7 @@ Learn about the Framingham Heart Study, risk factors, and how the predictive mod
    http://127.0.0.1:5000/
    ```
 
-## 🧠 Technical Architecture
 
-![Technical Architecture](static/images/screenshots/architecture.png)
-*The application's technical architecture diagram*
 
 ### Components
 - **Frontend**: HTML5, CSS3, JavaScript, Chart.js for visualizations
@@ -144,7 +141,7 @@ The model achieves the following performance metrics on the test dataset:
 - **F1 Score**: 70.3%
 - **AUC-ROC**: 0.829
 
-![Model Performance](static/images/screenshots/model_metrics.png)
+![Model Performance](static/images/screenshots/moidelstats.png)
 *Visualization of the model's performance metrics*
 
 ## 📱 Responsive Design
@@ -175,7 +172,7 @@ This project is licensed under the MIT License - see the LICENSE file for detail
 
 Anuranjan Jain - [@jainanuranjan](https://twitter.com/jainanuranjan) 
 
-Project Link: [https://github.com/anuranjanjain/DSN2](https://github.com/anuranjanjain/DSN2)
+Project Link: [https://github.com/anuranjanjain/DSN2](https://github.com/anuranjanjain/cardioguide)
 
 
 
