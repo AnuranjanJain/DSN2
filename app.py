@@ -192,10 +192,11 @@ def analyze():
             }
         })
     except Exception as e:
+        app.logger.error(f"Error in /api/analyze: {e}", exc_info=True)
         return jsonify({
             'status': 'error',
-            'message': str(e)
-        })
+            'message': 'An internal error occurred. Please try again later.'
+        }), 500
 
 # Direct API endpoint for health assistant
 @app.route('/api/health-assistant', methods=['POST'])
@@ -241,9 +242,10 @@ def health_assistant_api():
         })
         
     except Exception as e:
+        app.logger.error(f"Error in /api/health-assistant: {e}", exc_info=True)
         return jsonify({
             'status': 'error',
-            'message': str(e)
+            'message': 'An internal error occurred. Please try again later.'
         }), 500
 
 if __name__ == '__main__':
